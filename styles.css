@@ -146,7 +146,6 @@ ul {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   font-weight: bold;
 }
-
 /* Pricing Section */
 .pricing {
   max-width: 1200px;
@@ -167,33 +166,30 @@ ul {
 .pricing-card {
   width: 100%;
   border-radius: 16px;
-  backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.2);
+  background: #fff;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
 
-  /* ✅ Red-White gradient dashed border */
-  border: 2px dashed;
-  border-image: linear-gradient(135deg, #e22d2d, #ffffff) 1;
+  /* ✅ كل الكروت نفس الشكل */
+  border: 2px solid #e22d2d;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .pricing-card:hover {
   transform: translateY(-8px);
-  background: rgba(255, 255, 255, 0.3);
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
 }
 
-/* Featured Card border is still solid */
-
-
+/* Header */
 .pricing-header {
   padding: 1.25rem;
-  border-bottom: 1px solid #eee;
   text-align: center;
+  background-color: #e22d2d;
+  color: #fff;
 }
 
-
+/* Badge */
 .popular-badge {
   position: absolute;
   top: 12px;
@@ -218,22 +214,26 @@ ul {
 }
 
 .pricing-price {
-  font-size: 1.8rem;
-  color: #d10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.new-price {
+  font-size: 1.6rem;
   font-weight: bold;
-  text-align: center;
-  margin-bottom: 1rem;
+  color: #b50000;
+  margin-bottom: 0.25rem;
 }
 
-.pricing-save {
-  text-align: center;
-  font-size: 0.85rem;
-  color: #f72585;
-  font-weight: 500;
-  margin-top: -0.5rem;
-  margin-bottom: 1rem;
+.old-price {
+  font-size: 1rem;
+  color: #999;
+  text-decoration: line-through;
 }
 
+/* Features */
 .pricing-features {
   list-style: none;
   padding: 0;
@@ -256,6 +256,7 @@ ul {
   font-size: 1rem;
 }
 
+/* Button */
 .pricing-button {
   display: block;
   width: 100%;
@@ -263,17 +264,17 @@ ul {
   padding: 0.75rem;
   border-radius: 0.5rem;
   font-weight: 600;
-  background-color: rgba(243, 244, 246, 0.8);
-  color: #333;
+  background-color: #e22d2d;
+  color: #fff;
   text-decoration: none;
-  border: 1px solid #ddd;
-  transition: background 0.3s ease;
+  border: 2px solid #e22d2d;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .pricing-button:hover {
-  background-color: #e5e7eb;
+  background-color: #cc1f1f;
+  transform: translateY(-2px);
 }
-
 
 /* خصم */
 .discount-badge {
@@ -288,27 +289,6 @@ ul {
   border-radius: 12px;
   z-index: 5;
 }
-
-/* الأسعار */
-.pricing-price {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.new-price {
-  font-size: 1.6rem;
-  font-weight: bold;
-  color: #b50000; 
-  margin-bottom: 0.25rem;
-}
-
-.old-price {
-  font-size: 1rem;
-  color: #999;
-  text-decoration: line-through;
-}
-
 
 /* Features Section */
 .features {

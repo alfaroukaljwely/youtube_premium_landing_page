@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: 'Cairo', Arial, sans-serif;
+  font-family: "Cairo", Arial, sans-serif;
   background-color: #ffffff;
   color: #333333;
   text-align: right;
@@ -35,7 +35,7 @@ ul {
 }
 
 .section-title:after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -155,55 +155,20 @@ ul {
   position: relative;
 }
 
-/* Fading edges on sides */
-.pricing::before,
-.pricing::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 60px;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.pricing::before {
-  left: 0;
-  background: linear-gradient(to right, white 0%, transparent 100%);
-}
-
-.pricing::after {
-  right: 0;
-  background: linear-gradient(to left, white 0%, transparent 100%);
-}
-
 /* Cards Container */
 .pricing-cards {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
-  overflow-x: auto;
   padding-bottom: 1rem;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-}
-
-/* 🔒 Hide Scrollbar - Works on all modern browsers */
-.pricing-cards::-webkit-scrollbar {
-  display: none;
-}
-.pricing-cards {
-  -ms-overflow-style: none; /* IE & Edge */
-  scrollbar-width: none;     /* Firefox */
 }
 
 /* Pricing Card */
 .pricing-card {
-  flex: 0 0 auto;
-  width: 260px;
+  width: 100%;
   border-radius: 16px;
   backdrop-filter: blur(10px);
   background: rgba(255, 255, 255, 0.2);
-  scroll-snap-align: start;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -330,7 +295,7 @@ ul {
   position: absolute;
   top: 12px;
   right: 12px;
-  background-color: #b58900;
+  background-color: #b50000;
   color: #fff;
   font-size: 0.8rem;
   font-weight: bold;
@@ -349,7 +314,7 @@ ul {
 .new-price {
   font-size: 1.6rem;
   font-weight: bold;
-  color: #b58900; /* ذهبي */
+  color: #b50000; 
   margin-bottom: 0.25rem;
 }
 
@@ -649,7 +614,8 @@ ul {
   color: rgba(255, 255, 255, 0.7);
 }
 
-.footer-links h4, .footer-contact h4 {
+.footer-links h4,
+.footer-contact h4 {
   font-size: 1.25rem;
   margin-bottom: 1.5rem;
   color: #ffffff;
@@ -657,8 +623,9 @@ ul {
   padding-bottom: 0.75rem;
 }
 
-.footer-links h4:after, .footer-contact h4:after {
-  content: '';
+.footer-links h4:after,
+.footer-contact h4:after {
+  content: "";
   position: absolute;
   bottom: 0;
   right: 0;

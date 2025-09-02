@@ -185,9 +185,7 @@ ul {
 }
 
 /* Featured Card border is still solid */
-.pricing-card.featured {
-  border: 2px solid #e22d2d;
-}
+
 
 .pricing-header {
   padding: 1.25rem;
@@ -195,10 +193,6 @@ ul {
   text-align: center;
 }
 
-.pricing-header.featured {
-  background-color: #e22d2d;
-  color: #fff;
-}
 
 .popular-badge {
   position: absolute;
@@ -280,15 +274,6 @@ ul {
   background-color: #e5e7eb;
 }
 
-.pricing-button.featured {
-  background-color: #e22d2d;
-  color: #fff;
-  border-color: #e22d2d;
-}
-
-.pricing-button.featured:hover {
-  background-color: #cc1f1f;
-}
 
 /* خصم */
 .discount-badge {

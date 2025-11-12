@@ -132,3 +132,71 @@ pricingCards.forEach((card) => {
     }
   });
 });
+
+// FAQ Accordion
+document.addEventListener("DOMContentLoaded", function() {
+  const accordionItems = document.querySelectorAll('.accordion-item');
+  
+  // Close all accordion items except the first one
+  function closeAllItems(exceptItem = null) {
+    accordionItems.forEach(item => {
+      if (item !== exceptItem) {
+        const header = item.querySelector('.accordion-header');
+        const panel = item.querySelector('.accordion-panel');
+        
+        item.classList.remove('active');
+        header.setAttribute('aria-expanded', 'false');
+        panel.style.maxHeight = null;
+      }
+    });
+  }
+
+  // Toggle accordion item
+  function toggleAccordion(header) {
+    const item = header.parentElement;
+    const panel = header.nextElementSibling;
+    const isExpanded = header.getAttribute('aria-expanded') === 'true';
+
+    // Close all items first
+    closeAllItems(isExpanded ? null : item);
+
+    // Toggle current item if not expanded
+    if (!isExpanded) {
+      item.classList.add('active');
+      header.setAttribute('aria-expanded', 'true');
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+    }
+  }
+
+  // Initialize accordion
+  accordionItems.forEach(item => {
+    const header = item.querySelector('.accordion-header');
+    const panel = item.querySelector('.accordion-panel');
+    
+    // Set initial state
+    header.setAttribute('aria-expanded', 'false');
+    
+    // Add click event
+    header.addEventListener('click', () => {
+      toggleAccordion(header);
+    });
+    
+    // Add keyboard navigation
+    header.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleAccordion(header);
+      }
+    });
+    
+    // Set initial max-height for open panels
+    if (item.classList.contains('active')) {
+      header.setAttribute('aria-expanded', 'true');
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+    }
+  });
+  
+  // Close all panels by default
+  closeAllItems();
+});
+

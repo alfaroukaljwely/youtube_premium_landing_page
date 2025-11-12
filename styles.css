@@ -67,7 +67,7 @@ ul {
 }
 
 .banner-text {
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 700;
 }
 
@@ -173,7 +173,7 @@ ul {
 
   /* ✅ كل الكروت نفس الشكل */
   border: 2px solid #e22d2d;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .pricing-card:hover {
@@ -809,7 +809,6 @@ ul {
   }
 }
 
-
 /* FAQ Section */
 .faq {
   padding: 5rem 1.5rem;
@@ -864,7 +863,7 @@ ul {
 
 .accordion-header i:first-child {
   margin-left: 15px;
-  color: #f5b638;
+  color: #f53838;
   font-size: 1.2rem;
   width: 24px;
   text-align: center;
@@ -925,9 +924,116 @@ ul {
 
 .accordion-panel li:before {
   content: "•";
-  color: #f5b638;
+  color: #f53838;
   font-weight: bold;
   position: absolute;
   right: 0;
 }
 
+/* Floating Buttons Container */
+.floating-buttons {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 15px;
+  z-index: 999;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Common Floating Button Styles */
+.floating-button {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.8);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  color: white;
+  font-size: 1.8rem;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+/* WhatsApp Button */
+.whatsapp-button {
+  background: #00ff5f;
+  color: #274f36;
+  transition: all 0.3s ease;
+}
+
+.whatsapp-button:hover {
+  background: rgba(37, 211, 102, 0.25);
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.2);
+  color: #25D366;
+}
+
+.whatsapp-button:active {
+  transform: translateY(0) scale(0.95);
+}
+
+/* Back to Top Button */
+.back-to-top {
+  background: rgba(245, 56, 56, 0.15);
+  color: #ffd000;
+  transition: all 0.3s ease;
+}
+
+.back-to-top:hover {
+  background: rgba(245, 56, 56, 0.25);
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(245, 56, 56, 0.2);
+  color: #ffd000;
+}
+
+.back-to-top:active {
+  transform: translateY(0) scale(0.95);
+}
+
+/* Show Buttons */
+.floating-buttons.show .floating-button {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* Staggered Animation */
+.floating-buttons.show .back-to-top {
+  transition-delay: 0.1s;
+}
+
+/* RTL Support */
+[dir="rtl"] .floating-buttons {
+  right: auto;
+  left: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .floating-buttons {
+    right: 20px;
+    bottom: 20px;
+  }
+  
+  [dir="rtl"] .floating-buttons {
+    right: auto;
+    left: 20px;
+  }
+  
+  .floating-button {
+    width: 52px;
+    height: 52px;
+    font-size: 1.6rem;
+  }
+}

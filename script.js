@@ -134,18 +134,18 @@ pricingCards.forEach((card) => {
 });
 
 // FAQ Accordion
-document.addEventListener("DOMContentLoaded", function() {
-  const accordionItems = document.querySelectorAll('.accordion-item');
-  
+document.addEventListener("DOMContentLoaded", function () {
+  const accordionItems = document.querySelectorAll(".accordion-item");
+
   // Close all accordion items except the first one
   function closeAllItems(exceptItem = null) {
-    accordionItems.forEach(item => {
+    accordionItems.forEach((item) => {
       if (item !== exceptItem) {
-        const header = item.querySelector('.accordion-header');
-        const panel = item.querySelector('.accordion-panel');
-        
-        item.classList.remove('active');
-        header.setAttribute('aria-expanded', 'false');
+        const header = item.querySelector(".accordion-header");
+        const panel = item.querySelector(".accordion-panel");
+
+        item.classList.remove("active");
+        header.setAttribute("aria-expanded", "false");
         panel.style.maxHeight = null;
       }
     });
@@ -155,48 +155,166 @@ document.addEventListener("DOMContentLoaded", function() {
   function toggleAccordion(header) {
     const item = header.parentElement;
     const panel = header.nextElementSibling;
-    const isExpanded = header.getAttribute('aria-expanded') === 'true';
+    const isExpanded = header.getAttribute("aria-expanded") === "true";
 
     // Close all items first
     closeAllItems(isExpanded ? null : item);
 
     // Toggle current item if not expanded
     if (!isExpanded) {
-      item.classList.add('active');
-      header.setAttribute('aria-expanded', 'true');
-      panel.style.maxHeight = panel.scrollHeight + 'px';
+      item.classList.add("active");
+      header.setAttribute("aria-expanded", "true");
+      panel.style.maxHeight = panel.scrollHeight + "px";
     }
   }
 
   // Initialize accordion
-  accordionItems.forEach(item => {
-    const header = item.querySelector('.accordion-header');
-    const panel = item.querySelector('.accordion-panel');
-    
+  accordionItems.forEach((item) => {
+    const header = item.querySelector(".accordion-header");
+    const panel = item.querySelector(".accordion-panel");
+
     // Set initial state
-    header.setAttribute('aria-expanded', 'false');
-    
+    header.setAttribute("aria-expanded", "false");
+
     // Add click event
-    header.addEventListener('click', () => {
+    header.addEventListener("click", () => {
       toggleAccordion(header);
     });
-    
+
     // Add keyboard navigation
-    header.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
+    header.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
         toggleAccordion(header);
       }
     });
-    
+
     // Set initial max-height for open panels
-    if (item.classList.contains('active')) {
-      header.setAttribute('aria-expanded', 'true');
-      panel.style.maxHeight = panel.scrollHeight + 'px';
+    if (item.classList.contains("active")) {
+      header.setAttribute("aria-expanded", "true");
+      panel.style.maxHeight = panel.scrollHeight + "px";
     }
   });
-  
+
   // Close all panels by default
   closeAllItems();
 });
 
+// Floating Buttons Functionality
+const floatingButtons = document.querySelector('.floating-buttons');
+const backToTopButton = document.getElementById('backToTop');
+const whatsappButton = document.querySelector('.whatsapp-button');
+
+let isScrolling = false;
+let lastScrollTop = 0;
+const SCROLL_THRESHOLD = 200;
+
+// Toggle buttons visibility based on scroll position
+function toggleFloatingButtons() {
+  const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+  const isScrollingDown = scrollPosition > lastScrollTop;
+  
+  // Only update if scroll position is significant
+  if (Math.abs(scrollPosition - lastScrollTop) < 5) return;
+  
+  // Show/hide based on scroll position and direction
+  if (scrollPosition > SCROLL_THRESHOLD) {
+    floatingButtons.classList.add('show');
+    
+    // Add a small delay between button animations
+    const buttons = [backToTopButton, whatsappButton];
+    buttons.forEach((btn, index) => {
+      if (btn) {
+        btn.style.transitionDelay = `${index * 0.1}s`;
+      }
+    });
+  } else {
+    floatingButtons.classList.remove('show');
+    // Reset transition delays when hiding
+    [backToTopButton, whatsappButton].forEach(btn => {
+      if (btn) btn.style.transitionDelay = '0s';
+    });
+  }
+  
+  lastScrollTop = scrollPosition <= 0 ? 0 : scrollPosition;
+}
+
+// Smooth scroll to top
+function scrollToTop(e) {
+  e.preventDefault();
+  
+  if (isScrolling) return;
+  isScrolling = true;
+  
+  // Add a class to disable hover effects during scroll
+  backToTopButton.classList.add('scrolling');
+  
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+  
+  // Re-enable button after scroll completes
+  setTimeout(() => {
+    backToTopButton.classList.remove('scrolling');
+    isScrolling = false;
+  }, 1000);
+}
+
+// Handle WhatsApp button click
+function handleWhatsAppClick(e) {
+  // Add click animation
+  e.currentTarget.classList.add('clicked');
+  setTimeout(() => {
+    e.currentTarget.classList.remove('clicked');
+  }, 300);
+  
+  // The actual navigation is handled by the anchor tag's href
+  // We'll let the default behavior handle the link opening
+}
+
+// Throttle scroll events for better performance
+let scrollTimeout;
+function handleScroll() {
+  if (scrollTimeout) {
+    window.cancelAnimationFrame(scrollTimeout);
+  }
+  
+  scrollTimeout = window.requestAnimationFrame(toggleFloatingButtons);
+}
+
+// Initialize
+function initFloatingButtons() {
+  // Set initial state
+  toggleFloatingButtons();
+  
+  // Add event listeners
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  
+  if (backToTopButton) {
+    backToTopButton.addEventListener('click', scrollToTop);
+    
+    // Keyboard navigation for back to top
+    backToTopButton.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        scrollToTop(e);
+      }
+    });
+  }
+  
+  if (whatsappButton) {
+    whatsappButton.addEventListener('click', handleWhatsAppClick);
+    
+    // Keyboard navigation for WhatsApp button
+    whatsappButton.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        whatsappButton.click();
+      }
+    });
+  }
+}
+
+// Initialize when DOM is fully loaded
+document.addEventListener('DOMContentLoaded', initFloatingButtons);

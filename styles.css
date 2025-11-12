@@ -46,11 +46,153 @@ ul {
   border-radius: 2px;
 }
 
+
+/* Ticker Bar */
+.ticker-bar {
+  background: linear-gradient(90deg, #e22d2d 0%, #c41e1e 100%);
+  color: white;
+  padding: 0.6rem 0;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  direction: rtl;
+}
+
+.ticker-content {
+  display: flex;
+  white-space: nowrap;
+  animation: ticker 20s linear infinite;
+  padding: 0 1rem;
+  width: max-content;
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 3rem;
+  font-size: 0.95rem;
+  color: white;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  gap: 0.5rem;
+}
+
+.ticker-item i {
+  color: #ffeb3b;
+  font-size: 1rem;
+}
+
+.ticker-item:hover {
+  color: #ffeb3b;
+  transform: scale(1.05);
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Pause animation on hover */
+.ticker-bar:hover .ticker-content {
+  animation-play-state: paused;
+}
+
+/* Responsive Ticker */
+@media (max-width: 768px) {
+  .ticker-item {
+    margin: 0 1.5rem;
+    font-size: 0.85rem;
+  }
+
+  .ticker-item i {
+    font-size: 1rem;
+  }
+
+  .ticker-content {
+    animation-duration: 20s;
+  }
+}
+
+@media (max-width: 576px) {
+  .ticker-bar {
+    padding: 0.5rem 0;
+  }
+
+  .ticker-item {
+    margin: 0 1rem;
+    font-size: 0.8rem;
+  }
+
+  .ticker-item i {
+    font-size: 1rem;
+  }
+
+  .ticker-content {
+    animation-duration: 20s;
+  }
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+
+
+
 /* Hero Section */
 .hero {
   position: relative;
   background: linear-gradient(135deg, #e00000, #e22d2d);
   color: #ffffff;
+  margin-top: 20px;
 }
 
 .banner {
@@ -94,7 +236,7 @@ ul {
 
 .hero-description {
   font-size: 1.25rem;
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
   max-width: 600px;
 }
 

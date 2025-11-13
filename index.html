@@ -58,6 +58,76 @@
       </div>
     </div>
 
+    <!-- Header -->
+    <header class="header" id="header">
+      <div class="header-container">
+        <!-- Logo -->
+        <div class="logo">
+          <a href="#home" class="logo-link" aria-label="الصفحة الرئيسية">
+            <img src="img/Logo.png" alt="Fast Premium Logo" class="logo-img" width="40" height="40">
+            <span class="logo-text">Fast Premium</span>
+          </a>
+        </div>
+        
+        <!-- Main Navigation -->
+        <nav class="nav-menu" id="mainNav">
+          <ul class="nav-list">
+            <li class="nav-item">
+              <a href="#home" class="nav-link active" data-nav-link>
+                <span>الرئيسية</span>
+                <i class="fas fa-home"></i>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="#pricing" class="nav-link" data-nav-link>
+                <span>باقات الاشتراك</span>
+                <i class="fas fa-tags"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#features" class="nav-link" data-nav-link>
+                <span>المميزات</span>
+                <i class="fas fa-star"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#comparison" class="nav-link" data-nav-link>
+                <span>المقارنة</span>
+                <i class="fas fa-exchange-alt"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#faq" class="nav-link" data-nav-link>
+                <span>الأسئلة الشائعة</span>
+                <i class="far fa-question-circle"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#contact" class="nav-link" data-nav-link>
+                <span>اتصل بنا</span>
+                <i class="fas fa-headset"></i>
+              </a>
+            </li>
+          </ul>
+          
+          <!-- CTA Button -->
+          <div class="nav-cta">
+            <a href="#pricing" class="btn btn-primary" id="ctaButton">
+              <span>اشترك الآن</span>
+              <i class="fas fa-arrow-left"></i>
+            </a>
+          </div>
+        </nav>
+        
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="قائمة الهاتف" aria-expanded="false" aria-controls="mainNav">
+          <span class="menu-icon"></span>
+          <span class="menu-icon"></span>
+          <span class="menu-icon"></span>
+        </button>
+      </div>
+    </header>
 
     <main class="main">
       <!-- Hero Section -->
@@ -239,7 +309,7 @@
       </section>
 
       <!-- Features Section -->
-      <section class="features">
+      <section class="features" id="features">
         <div class="features-container">
           <h2 class="section-title">مميزات الاشتراك في Fast premium</h2>
 
@@ -686,7 +756,7 @@
             </div>
 
 
-<div class="footer-contact">
+<div class="footer-contact" id="contact">
   <h4>تواصل معنا</h4>
 
   <div class="contact-buttons">
@@ -737,5 +807,82 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const navMenu = document.getElementById('mainNav');
+      const navLinks = document.querySelectorAll('.nav-link');
+
+      // Toggle mobile menu
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenuBtn.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+      });
+
+      // Close menu when clicking on a nav link
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenuBtn.classList.remove('active');
+          navMenu.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-menu') && !e.target.closest('.mobile-menu-btn')) {
+          mobileMenuBtn.classList.remove('active');
+          navMenu.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+
+      // Sticky header on scroll
+      const header = document.getElementById('header');
+      let lastScroll = 0;
+
+      window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll <= 0) {
+          header.style.top = '40px'; // Height of ticker bar
+          return;
+        }
+        
+        if (currentScroll > lastScroll && currentScroll > header.offsetHeight) {
+          // Scrolling down
+          header.style.top = `-${header.offsetHeight + 20}px`;
+        } else {
+          // Scrolling up
+          header.style.top = '40px'; // Height of ticker bar
+        }
+        
+        lastScroll = currentScroll;
+      });
+
+      // Active link highlight on scroll
+      const sections = document.querySelectorAll('section[id]');
+      
+      window.addEventListener('scroll', () => {
+        let current = '';
+        
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop - 200;
+          const sectionHeight = section.offsetHeight;
+          
+          if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+            current = section.getAttribute('id');
+          }
+        });
+        
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href').includes(current)) {
+            link.classList.add('active');
+          }
+        });
+      });
+    </script>
   </body>
 </html>
